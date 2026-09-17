@@ -134,22 +134,24 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 <nav>
   <div class="nav">
     <a class="logo" href="#">
-      <!-- Logo K géométrique et dégradé -->
+      <!-- Logo K fidèle à la maquette -->
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="gradTop" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#38bdf8" />
-            <stop offset="100%" stop-color="#1d4ed8" />
-          </linearGradient>
-          <linearGradient id="gradBot" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#2563eb" />
             <stop offset="100%" stop-color="#0284c7" />
           </linearGradient>
+          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2563eb" />
+            <stop offset="100%" stop-color="#1e40af" />
+          </linearGradient>
         </defs>
-        <!-- Forme supérieure (flèche cyan) -->
-        <path d="M 18 10 L 52 44 L 28 68 L 0 34 Z" fill="url(#gradTop)" />
-        <!-- Forme inférieure (flèche bleue superposée) -->
-        <path d="M 46 32 L 80 66 L 56 90 L 22 56 Z" fill="url(#gradBot)" opacity="0.9" />
+        <!-- Branche de gauche (Violet/Bleu foncé) -->
+        <path d="M 12 18 L 38 18 L 38 82 L 12 82 Z" fill="url(#blueGrad)" />
+        <!-- Chevron haut droit (Cyan) -->
+        <path d="M 38 18 L 88 50 L 62 50 L 38 34 Z" fill="url(#cyanGrad)" />
+        <!-- Chevron bas droit (Bleu) -->
+        <path d="M 38 50 L 88 82 L 62 82 L 38 66 Z" fill="url(#blueGrad)" opacity="0.9" />
       </svg>
       KEHIHEL <b>Zakaria</b>
     </a>
