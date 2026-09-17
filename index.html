@@ -12,9 +12,12 @@ body{font-family:'Segoe UI',Roboto,sans-serif;background:#050c18;color:#fff;line
 /* Navigation */
 nav{position:fixed;top:0;width:100%;z-index:20;padding:18px 5%;background:#050c18cc;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff10}
 .nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
-.logo-icon{width:24px;height:24px;background:linear-gradient(135deg,#00d2ff,#0052d4);clip-path:polygon(0 0, 100% 0, 50% 100%)}
+
+/* Logo avec SVG reproduit */
+.logo{font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:12px}
+.logo-svg{width:28px;height:28px;display:block;filter:drop-shadow(0 0 8px rgba(66,217,255,0.4))}
 .logo b{color:#42d9ff}
+
 .links{display:flex;gap:25px}
 .links a{color:#ccd6e5;text-decoration:none;font-weight:500;transition:.3s}
 .links a:hover{color:#42d9ff}
@@ -62,7 +65,6 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
   animation: slideInFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Reflet de lumière sur le visage (Cyan & Violet) */
 .hero-image-wrapper::before {
   content: "";
   position: absolute;
@@ -76,7 +78,6 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
   animation: fadeInReflect 1.5s ease-out forwards;
 }
 
-/* Fondu inférieur & latéral de la photo */
 .hero-image-wrapper::after{
   content:"";
   position:absolute;
@@ -132,7 +133,28 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 
 <nav>
   <div class="nav">
-    <a class="logo" href="#"><span class="logo-icon"></span>KEHIHEL <b>Zakaria</b></a>
+    <a class="logo" href="#">
+      <!-- Logo vectoriel K -->
+      <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="blueGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0052D4" />
+            <stop offset="100%" stop-color="#4364F7" />
+          </linearGradient>
+          <linearGradient id="blueGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#42D9FF" />
+            <stop offset="100%" stop-color="#0052D4" />
+          </linearGradient>
+        </defs>
+        <!-- Branche gauche du K -->
+        <path d="M15 10 L42 37 L42 90 L15 63 Z" fill="url(#blueGrad1)" />
+        <!-- Branche haut-droite du K -->
+        <path d="M42 37 L70 10 L92 32 L64 60 Z" fill="url(#blueGrad2)" />
+        <!-- Branche bas-droite du K -->
+        <path d="M50 46 L78 74 L56 96 L28 68 Z" fill="url(#blueGrad2)" opacity="0.9" />
+      </svg>
+      KEHIHEL <b>Zakaria</b>
+    </a>
     <div class="links">
       <a href="#domaines">Domaines</a>
       <a href="#apropos">À Propos</a>
@@ -143,7 +165,6 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 </nav>
 
 <header>
-  <!-- Particules animées en arrière-plan -->
   <canvas id="tech-canvas"></canvas>
 
   <div class="hero">
@@ -186,7 +207,6 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
   © 2026 KEHIHEL Zakaria — Formateur en technologies créatives.
 </footer>
 
-<!-- Script Particules IA/Tech -->
 <script>
 const canvas = document.getElementById('tech-canvas');
 const ctx = canvas.getContext('2d');
@@ -228,7 +248,6 @@ function animate() {
     ctx.fillStyle = `rgba(66, 217, 255, ${p.alpha})`;
     ctx.fill();
 
-    // Connexions réseau IA/Tech
     for (let j = i + 1; j < particleCount; j++) {
       let p2 = particles[j];
       let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
