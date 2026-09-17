@@ -15,18 +15,18 @@ nav{position:fixed;top:0;width:100%;z-index:20;padding:18px 5%;background:#050c1
 
 /* Logo */
 .logo{font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:12px}
-.logo-svg{width:32px;height:32px;display:inline-block;vertical-align:middle;filter:drop-shadow(0 0 10px rgba(66,217,255,0.5))}
+.logo-svg{width:32px;height:32px;display:inline-block;vertical-align:middle;filter:drop-shadow(0 0 10px rgba(66,217,255,0.4))}
 .logo b{color:#42d9ff}
 
 .links{display:flex;gap:25px}
 .links a{color:#ccd6e5;text-decoration:none;font-weight:500;transition:.3s}
 .links a:hover{color:#42d9ff}
 
-/* Section Hero - Arrière-plan unique */
+/* Section Hero */
 header{position:relative;padding:0 5%;max-width:1400px;margin:auto;overflow:hidden;min-height:90vh;display:flex;align-items:center;background:#050c18}
 .hero{width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;position:relative;z-index:2}
 
-/* Canvas pour particules Tech/IA */
+/* Canvas pour particules */
 #tech-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 
 .hero-content{position:relative;z-index:3;padding:100px 0 60px}
@@ -41,7 +41,7 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
 .secondary{border:1px solid #ffffff30;color:#e2e8f0;background:#ffffff08}
 .secondary:hover{background:#ffffff18;transform:translateY(-2px)}
 
-/* Photo XXL fusionnée sans séparateur */
+/* Photo XXL sans aucun reflet */
 .hero-image-wrapper{
   position:absolute;
   right:-2%;
@@ -64,21 +64,7 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
   animation: slideInFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Reflet de lumière sur le visage (Cyan & Violet) */
-.hero-image-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: 
-    radial-gradient(circle at 35% 30%, rgba(66, 217, 255, 0.35) 0%, transparent 45%),
-    radial-gradient(circle at 75% 20%, rgba(168, 85, 247, 0.25) 0%, transparent 40%);
-  mix-blend-mode: color-dodge;
-  pointer-events: none;
-  animation: fadeInReflect 1.5s ease-out forwards;
-}
-
-/* Fondu uniquement sur le bas pour masquer la coupe du buste */
+/* Fondu uniquement en bas de l'image */
 .hero-image-wrapper::after{
   content:"";
   position:absolute;
@@ -100,11 +86,6 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
     opacity: 1;
     transform: translateX(0) scale(1);
   }
-}
-
-@keyframes fadeInReflect {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
 }
 
 /* Domaines */
@@ -138,22 +119,24 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 <nav>
   <div class="nav">
     <a class="logo" href="#">
-      <!-- Logo K exact (ruban géométrique) -->
+      <!-- Logo exact de la maquette -->
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
+          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e40af" />
+            <stop offset="100%" stop-color="#2563eb" />
+          </linearGradient>
           <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#38bdf8" />
             <stop offset="100%" stop-color="#0284c7" />
           </linearGradient>
-          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#2563eb" />
-            <stop offset="100%" stop-color="#1d4ed8" />
-          </linearGradient>
         </defs>
-        <!-- Forme supérieure (Cyan) -->
-        <polygon points="10,15 50,55 30,75 0,35" fill="url(#cyanGrad)" />
-        <!-- Forme inférieure chevauchante (Bleu) -->
-        <polygon points="40,25 80,65 60,85 20,45" fill="url(#blueGrad)" opacity="0.9" />
+        <!-- Barre gauche (verticale oblique) -->
+        <polygon points="12,12 36,12 36,88 12,88" fill="url(#blueGrad)" />
+        <!-- Chevron haut (Cyan) -->
+        <polygon points="42,12 90,48 64,48 42,30" fill="url(#cyanGrad)" />
+        <!-- Chevron bas (Bleu clair) -->
+        <polygon points="42,52 64,52 90,88 42,88" fill="url(#cyanGrad)" opacity="0.8" />
       </svg>
       KEHIHEL <b>Zakaria</b>
     </a>
@@ -167,7 +150,6 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 </nav>
 
 <header>
-  <!-- Arrière-plan dynamique de particules -->
   <canvas id="tech-canvas"></canvas>
 
   <div class="hero">
