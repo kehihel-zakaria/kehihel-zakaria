@@ -38,7 +38,7 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
 .secondary{border:1px solid #ffffff30;color:#e2e8f0;background:#ffffff08}
 .secondary:hover{background:#ffffff18;transform:translateY(-2px)}
 
-/* Photo XXL ancrée à droite */
+/* Photo XXL avec reflets de couleur */
 .hero-image-wrapper{
   position:absolute;
   right:-5%;
@@ -62,11 +62,26 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
   animation: slideInFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Reflet de lumière sur le visage (Cyan & Violet) */
+.hero-image-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: 
+    radial-gradient(circle at 35% 30%, rgba(66, 217, 255, 0.35) 0%, transparent 45%),
+    radial-gradient(circle at 75% 20%, rgba(168, 85, 247, 0.25) 0%, transparent 40%);
+  mix-blend-mode: color-dodge;
+  pointer-events: none;
+  animation: fadeInReflect 1.5s ease-out forwards;
+}
+
 /* Fondu inférieur & latéral de la photo */
 .hero-image-wrapper::after{
   content:"";
   position:absolute;
   inset:0;
+  z-index: 4;
   background:linear-gradient(90deg, #050c18 0%, transparent 20%), linear-gradient(0deg, #050c18 0%, transparent 25%);
   pointer-events:none;
 }
@@ -80,6 +95,11 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
     opacity: 1;
     transform: translateX(0) scale(1);
   }
+}
+
+@keyframes fadeInReflect {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* Domaines */
