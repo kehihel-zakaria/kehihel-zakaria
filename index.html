@@ -7,75 +7,102 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Segoe UI',Roboto,sans-serif;background:#07111f;color:#fff;line-height:1.6;overflow-x:hidden}
+body{font-family:'Segoe UI',Roboto,sans-serif;background:#050c18;color:#fff;line-height:1.6;overflow-x:hidden}
 
 /* Navigation */
-nav{position:fixed;top:0;width:100%;z-index:10;padding:18px 5%;background:#07111fcc;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff10}
+nav{position:fixed;top:0;width:100%;z-index:20;padding:18px 5%;background:#050c18cc;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff10}
 .nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none}
+.logo{font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-icon{width:24px;height:24px;background:linear-gradient(135deg,#00d2ff,#0052d4);clip-path:polygon(0 0, 100% 0, 50% 100%)}
 .logo b{color:#42d9ff}
 .links{display:flex;gap:25px}
 .links a{color:#ccd6e5;text-decoration:none;font-weight:500;transition:.3s}
 .links a:hover{color:#42d9ff}
 
 /* Section Hero */
-header{padding:120px 5% 0;max-width:1200px;margin:auto}
-.hero{min-height:85vh;display:grid;grid-template-columns:1.2fr 0.8fr;align-items:center;gap:30px;position:relative}
+header{position:relative;padding:0 5%;max-width:1400px;margin:auto;overflow:hidden;min-height:90vh;display:flex;align-items:center}
+.hero{width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;position:relative;z-index:2}
 
-/* Effets de lumière en arrière-plan */
-.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
-.hero::before{width:350px;height:350px;background:#087cff;left:-80px;top:10%;opacity:.25}
-.hero::after{width:300px;height:300px;background:#813cff;right:0;bottom:10%;opacity:.2}
+/* Canvas pour particules Tech/IA */
+#tech-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 
-.hero-content{position:relative;z-index:2;padding-bottom:60px}
-.badge{color:#42d9ff;background:#42d9ff12;border:1px solid #42d9ff44;border-radius:30px;padding:6px 16px;display:inline-block;font-size:.85rem;font-weight:600;margin-bottom:20px;letter-spacing:1px}
-h1{font-size:clamp(2.5rem,5vw,4.2rem);line-height:1.1;font-weight:800;margin-bottom:20px}
-.grad{background:linear-gradient(90deg,#fff,#42d9ff,#9b7cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:#aebbd0;font-size:1.15rem;margin-bottom:30px;max-width:540px}
+.hero-content{position:relative;z-index:3;padding:100px 0 60px}
+h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-bottom:20px;letter-spacing:-1px}
+.grad{background:linear-gradient(90deg,#fff,#42d9ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#a0aec0;font-size:1.2rem;margin-bottom:35px;max-width:520px;font-weight:400}
 
 .buttons{display:flex;gap:15px;flex-wrap:wrap}
-.btn{padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:700;transition:.3s;display:inline-block}
-.primary{background:#42d9ff;color:#04101b;box-shadow:0 0 20px #42d9ff40}
-.primary:hover{transform:translateY(-3px);box-shadow:0 0 30px #42d9ff70}
-.secondary{border:1px solid #ffffff25;color:#fff;background:#ffffff05}
-.secondary:hover{background:#ffffff15;transform:translateY(-3px)}
+.btn{padding:14px 30px;border-radius:10px;text-decoration:none;font-weight:600;transition:.3s;display:inline-block;font-size:1rem}
+.primary{background:#2563eb;color:#fff;box-shadow:0 0 25px rgba(37,99,235,0.4)}
+.primary:hover{background:#1d4ed8;transform:translateY(-2px);box-shadow:0 0 35px rgba(37,99,235,0.6)}
+.secondary{border:1px solid #ffffff30;color:#e2e8f0;background:#ffffff08}
+.secondary:hover{background:#ffffff18;transform:translateY(-2px)}
 
-/* Image PNG transparente avec votre nom exact */
+/* Photo XXL ancrée à droite */
 .hero-image-wrapper{
-  position:relative;
-  z-index:2;
+  position:absolute;
+  right:-5%;
+  bottom:0;
+  height:100%;
+  width:55%;
   display:flex;
-  justify-content:center;
+  justify-content:flex-end;
   align-items:flex-end;
+  z-index:2;
+  pointer-events:none;
 }
 
 .hero-image-wrapper img{
-  width:100%;
-  max-width:480px;
-  height:auto;
-  display:block;
-  object-fit:contain;
-  /* Effet halo néon sur les contours */
-  filter: drop-shadow(0 0 25px rgba(66,217,255,0.35)) drop-shadow(0 0 60px rgba(129,60,255,0.25));
+  height:105%;
+  width:auto;
+  max-width:none;
+  object-fit:cover;
+  object-position:top right;
+  filter: drop-shadow(-20px 0 50px rgba(0,210,255,0.15));
+  animation: slideInFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Grille des domaines */
-section{padding:80px 5%;max-width:1200px;margin:auto}
+/* Fondu inférieur & latéral de la photo */
+.hero-image-wrapper::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, #050c18 0%, transparent 20%), linear-gradient(0deg, #050c18 0%, transparent 25%);
+  pointer-events:none;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Domaines */
+section{padding:80px 5%;max-width:1200px;margin:auto;position:relative;z-index:3}
 .title{font-size:2.2rem;margin-bottom:40px;font-weight:700}
 .title span{color:#42d9ff}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
-.card{background:#ffffff08;border:1px solid #ffffff12;border-radius:20px;padding:28px 20px;transition:.4s}
-.card:hover{transform:translateY(-8px);border-color:#42d9ff66;background:#ffffff10}
+.card{background:#ffffff05;border:1px solid #ffffff10;border-radius:18px;padding:28px 20px;transition:.4s}
+.card:hover{transform:translateY(-6px);border-color:#42d9ff66;background:#ffffff0d}
 .icon{font-size:2.2rem;margin-bottom:12px}
 .card h3{font-size:1.2rem;margin-bottom:8px}
-.card p{color:#9eabc0;font-size:.95rem}
+.card p{color:#94a3b8;font-size:.95rem}
 
 /* Contact & Footer */
-.contact{text-align:center;background:linear-gradient(180deg,#07111f 0%,#0a1a30 100%);border-radius:30px;border:1px solid #ffffff10;margin-top:40px}
-footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#8290a5;font-size:.9rem}
+.contact{text-align:center;background:linear-gradient(180deg,#050c18 0%,#0c1a30 100%);border-radius:24px;border:1px solid #ffffff10}
+footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#64748b;font-size:.9rem}
 
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;text-align:center}
+@media(max-width:960px){
+  header{min-height:auto;padding-top:100px}
+  .hero{grid-template-columns:1fr}
+  .hero-image-wrapper{position:relative;right:0;width:100%;height:450px;justify-content:center}
+  .hero-image-wrapper img{height:100%;object-position:center}
+  .hero-content{text-align:center;padding:40px 0}
   .hero p,.buttons{margin-left:auto;margin-right:auto;justify-content:center}
   .links{display:none}
 }
@@ -85,30 +112,33 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#8290
 
 <nav>
   <div class="nav">
-    <a class="logo" href="#">KEHIHEL <b>Zakaria</b></a>
+    <a class="logo" href="#"><span class="logo-icon"></span>KEHIHEL <b>Zakaria</b></a>
     <div class="links">
       <a href="#domaines">Domaines</a>
-      <a href="#apropos">À propos</a>
+      <a href="#apropos">À Propos</a>
+      <a href="#projets">Projets</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 <header>
+  <!-- Particules animées en arrière-plan -->
+  <canvas id="tech-canvas"></canvas>
+
   <div class="hero">
     <div class="hero-content">
-      <div class="badge">FORMATEUR • OUJDA • MAROC</div>
       <h1>Former aujourd’hui pour <span class="grad">créer demain.</span></h1>
-      <p>Formateur en infographie, multimédia, informatique, robotique Arduino et intelligence artificielle. Une pédagogie pratique, créative et orientée projets.</p>
+      <p>Formateur Expert en Infographie, Multimédia, Robotique et Intelligence Artificielle.</p>
       <div class="buttons">
         <a class="btn primary" href="#contact">Me contacter</a>
-        <a class="btn secondary" href="#domaines">Découvrir mes domaines</a>
+        <a class="btn secondary" href="#domaines">Découvrir</a>
       </div>
     </div>
-    
-    <div class="hero-image-wrapper">
-      <img src="watermarked_img_5109543667570001603.png" alt="KEHIHEL Zakaria">
-    </div>
+  </div>
+
+  <div class="hero-image-wrapper">
+    <img src="watermarked_img_5109543667570001603.png" alt="KEHIHEL Zakaria">
   </div>
 </header>
 
@@ -125,7 +155,7 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#8290
 
 <section id="contact" class="contact">
   <h2 class="title">Construisons un <span>projet</span> ensemble.</h2>
-  <p style="color:#aebbd0;margin-bottom:25px">Vous cherchez un formateur qualifié à Oujda ? Contactez-moi directement.</p>
+  <p style="color:#a0aec0;margin-bottom:25px">Vous cherchez un formateur qualifié à Oujda ? Contactez-moi directement.</p>
   <div class="buttons" style="justify-content:center">
     <a class="btn primary" href="https://wa.me/212659366402" target="_blank">WhatsApp</a>
     <a class="btn secondary" href="mailto:mrkehihel@gmail.com">Email</a>
@@ -135,6 +165,67 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#8290
 <footer>
   © 2026 KEHIHEL Zakaria — Formateur en technologies créatives.
 </footer>
+
+<!-- Script Particules IA/Tech -->
+<script>
+const canvas = document.getElementById('tech-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const particles = [];
+const particleCount = 55;
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.6,
+    vy: (Math.random() - 0.5) * 0.6,
+    size: Math.random() * 2 + 1,
+    alpha: Math.random() * 0.6 + 0.2
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < particleCount; i++) {
+    let p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(66, 217, 255, ${p.alpha})`;
+    ctx.fill();
+
+    // Connexions réseau IA/Tech
+    for (let j = i + 1; j < particleCount; j++) {
+      let p2 = particles[j];
+      let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+      if (dist < 130) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = `rgba(66, 217, 255, ${0.15 * (1 - dist / 130)})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 
 </body>
 </html>
