@@ -13,9 +13,9 @@ body{font-family:'Segoe UI',Roboto,sans-serif;background:#050c18;color:#fff;line
 nav{position:fixed;top:0;width:100%;z-index:20;padding:18px 5%;background:#050c18cc;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff10}
 .nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center}
 
-/* Logo */
+/* Logo K */
 .logo{font-size:1.3rem;font-weight:800;color:#fff;text-decoration:none;display:flex;align-items:center;gap:12px}
-.logo-svg{width:32px;height:32px;display:inline-block;vertical-align:middle;filter:drop-shadow(0 0 10px rgba(66,217,255,0.4))}
+.logo-svg{width:32px;height:32px;display:inline-block;vertical-align:middle;filter:drop-shadow(0 0 8px rgba(66,217,255,0.4))}
 .logo b{color:#42d9ff}
 
 .links{display:flex;gap:25px}
@@ -41,10 +41,10 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
 .secondary{border:1px solid #ffffff30;color:#e2e8f0;background:#ffffff08}
 .secondary:hover{background:#ffffff18;transform:translateY(-2px)}
 
-/* Photo XXL sans aucun reflet */
+/* Photo décalée à droite */
 .hero-image-wrapper{
   position:absolute;
-  right:-2%;
+  right:-6%;
   bottom:0;
   height:100%;
   width:55%;
@@ -64,7 +64,7 @@ h1{font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.1;font-weight:800;margin-b
   animation: slideInFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Fondu uniquement en bas de l'image */
+/* Fondu bas de page */
 .hero-image-wrapper::after{
   content:"";
   position:absolute;
@@ -119,24 +119,24 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 <nav>
   <div class="nav">
     <a class="logo" href="#">
-      <!-- Logo exact de la maquette -->
+      <!-- SVG formant la lettre K (Barre verticale + chevrons haut/bas) -->
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1e40af" />
-            <stop offset="100%" stop-color="#2563eb" />
+          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2563eb" />
+            <stop offset="100%" stop-color="#1d4ed8" />
           </linearGradient>
           <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#38bdf8" />
             <stop offset="100%" stop-color="#0284c7" />
           </linearGradient>
         </defs>
-        <!-- Barre gauche (verticale oblique) -->
-        <polygon points="12,12 36,12 36,88 12,88" fill="url(#blueGrad)" />
-        <!-- Chevron haut (Cyan) -->
-        <polygon points="42,12 90,48 64,48 42,30" fill="url(#cyanGrad)" />
-        <!-- Chevron bas (Bleu clair) -->
-        <polygon points="42,52 64,52 90,88 42,88" fill="url(#cyanGrad)" opacity="0.8" />
+        <!-- Barre verticale du K -->
+        <rect x="15" y="10" width="20" height="80" rx="4" fill="url(#blueGrad)" />
+        <!-- Branche supérieure du K (Cyan) -->
+        <polygon points="42,46 76,10 94,22 58,58" fill="url(#cyanGrad)" />
+        <!-- Branche inférieure du K (Bleu) -->
+        <polygon points="42,54 58,42 94,78 76,90" fill="url(#blueGrad)" />
       </svg>
       KEHIHEL <b>Zakaria</b>
     </a>
