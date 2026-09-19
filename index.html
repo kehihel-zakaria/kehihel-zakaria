@@ -103,7 +103,7 @@ section{padding:80px 5%;max-width:1200px;margin:auto;position:relative;z-index:3
 .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .blog-card{background:#ffffff05;border:1px solid #ffffff10;border-radius:18px;overflow:hidden;transition:.4s;display:flex;flex-direction:column;text-decoration:none;color:inherit}
 .blog-card:hover{transform:translateY(-6px);border-color:#42d9ff66;background:#ffffff0d}
-.blog-img-wrapper{width:100%;height:180px;overflow:hidden;position:relative}
+.blog-img-wrapper{width:100%;height:180px;overflow:hidden;position:relative;background:#0c1a30}
 .blog-img-wrapper img{width:100%;height:100%;object-fit:cover;transition:.5s}
 .blog-card:hover .blog-img-wrapper img{transform:scale(1.08)}
 .blog-info{padding:20px;display:flex;flex-direction:column;flex-grow:1}
@@ -133,7 +133,6 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 <nav>
   <div class="nav">
     <a class="logo" href="#">
-      <!-- SVG formant la lettre K (Barre verticale + chevrons haut/bas) -->
       <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -145,11 +144,8 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
             <stop offset="100%" stop-color="#0284c7" />
           </linearGradient>
         </defs>
-        <!-- Barre verticale du K -->
         <rect x="15" y="10" width="20" height="80" rx="4" fill="url(#blueGrad)" />
-        <!-- Branche supérieure du K (Cyan) -->
         <polygon points="42,46 76,10 94,22 58,58" fill="url(#cyanGrad)" />
-        <!-- Branche inférieure du K (Bleu) -->
         <polygon points="42,54 58,42 94,78 76,90" fill="url(#blueGrad)" />
       </svg>
       KEHIHEL <b>Zakaria</b>
@@ -194,50 +190,11 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
   </div>
 </section>
 
-<!-- Section Blog avec 3 cartes horizontales -->
+<!-- Section Blog Mise à Jour Automatiquement -->
 <section id="blog">
   <h2 class="title">Derniers <span>articles</span></h2>
-  <div class="blog-grid">
-    
-    <!-- Article 1 -->
-    <a href="https://inoobyte.blogspot.com/" target="_blank" class="blog-card">
-      <div class="blog-img-wrapper">
-        <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80" alt="Intelligence Artificielle">
-      </div>
-      <div class="blog-info">
-        <span class="blog-date">IA & Innovation</span>
-        <h3>Révolution GPT-6 ASTRA</h3>
-        <p>Découvrez comment les nouveaux modèles d'agents autonomes transforment le travail numérique.</p>
-        <span class="blog-link-text">Lire l'article &rarr;</span>
-      </div>
-    </a>
-
-    <!-- Article 2 -->
-    <a href="https://inoobyte.blogspot.com/" target="_blank" class="blog-card">
-      <div class="blog-img-wrapper">
-        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Robotique & Arduino">
-      </div>
-      <div class="blog-info">
-        <span class="blog-date">Robotique</span>
-        <h3>Débuter avec Arduino en 2026</h3>
-        <p>Les étapes essentielles pour concevoir vos premiers circuits et projets électroniques intelligents.</p>
-        <span class="blog-link-text">Lire l'article &rarr;</span>
-      </div>
-    </a>
-
-    <!-- Article 3 -->
-    <a href="https://inoobyte.blogspot.com/" target="_blank" class="blog-card">
-      <div class="blog-img-wrapper">
-        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80" alt="Design & Infographie">
-      </div>
-      <div class="blog-info">
-        <span class="blog-date">Design Graphique</span>
-        <h3>Tendance Infographie & Web3D</h3>
-        <p>Comment allier création graphique traditionnelle et outils génératifs pour vos visuels.</p>
-        <span class="blog-link-text">Lire l'article &rarr;</span>
-      </div>
-    </a>
-
+  <div class="blog-grid" id="blog-container">
+    <p style="color:#94a3b8;grid-column:1/-1;text-align:center;">Chargement des derniers articles du blog...</p>
   </div>
 </section>
 
@@ -255,6 +212,7 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
 </footer>
 
 <script>
+// Particules Canvas
 const canvas = document.getElementById('tech-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -311,7 +269,74 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+
+// Chargement Automatique des 3 derniers articles Blogspot
+function loadBloggerPosts(json) {
+  const container = document.getElementById('blog-container');
+  container.innerHTML = '';
+
+  const entries = json.feed.entry || [];
+  if (entries.length === 0) {
+    container.innerHTML = '<p style="color:#94a3b8;grid-column:1/-1;text-align:center;">Aucun article trouvé.</p>';
+    return;
+  }
+
+  entries.slice(0, 3).forEach(entry => {
+    // Titre
+    const title = entry.title.$t;
+
+    // Lien de l'article
+    let link = '#';
+    for (let l of entry.link) {
+      if (l.rel === 'alternate') {
+        link = l.href;
+        break;
+      }
+    }
+
+    // Image miniature
+    let imgUrl = 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80';
+    if (entry.media$thumbnail) {
+      imgUrl = entry.media$thumbnail.url.replace('/s72-c/', '/s800/');
+    } else if (entry.content && entry.content.$t.includes('<img')) {
+      const match = entry.content.$t.match(/src="([^"]+)"/);
+      if (match) imgUrl = match[1];
+    }
+
+    // Date
+    const published = new Date(entry.published.$t);
+    const dateStr = published.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    // Extrait de texte
+    let snippet = '';
+    if (entry.summary) {
+      snippet = entry.summary.$t;
+    } else if (entry.content) {
+      snippet = entry.content.$t.replace(/<[^>]*>/g, '');
+    }
+    if (snippet.length > 90) snippet = snippet.substring(0, 90) + '...';
+
+    // Génération de la carte HTML
+    const cardHTML = `
+      <a href="${link}" target="_blank" class="blog-card">
+        <div class="blog-img-wrapper">
+          <img src="${imgUrl}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div class="blog-info">
+          <span class="blog-date">${dateStr}</span>
+          <h3>${title}</h3>
+          <p>${snippet}</p>
+          <span class="blog-link-text">Lire l'article &rarr;</span>
+        </div>
+      </a>
+    `;
+    container.innerHTML += cardHTML;
+  });
+}
 </script>
+
+<!-- Script d'appel du flux RSS/JSON de Blogger -->
+<script src="https://inoobyte.blogspot.com/feeds/posts/default?alt=json-in-script&callback=loadBloggerPosts&max-results=3"></script>
 
 </body>
 </html>
