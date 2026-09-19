@@ -108,9 +108,9 @@ section{padding:80px 5%;max-width:1200px;margin:auto;position:relative;z-index:3
 .blog-card:hover .blog-img-wrapper img{transform:scale(1.08)}
 .blog-info{padding:20px;display:flex;flex-direction:column;flex-grow:1}
 .blog-date{font-size:.8rem;color:#42d9ff;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
-.blog-info h3{font-size:1.1rem;margin-bottom:10px;line-height:1.4;color:#fff}
-.blog-info p{color:#94a3b8;font-size:.9rem;flex-grow:1;margin-bottom:15px}
-.blog-link-text{color:#38bdf8;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px}
+.blog-info h3{font-size:1.1rem;margin-bottom:10px;line-height:1.4;color:#fff;direction:auto;text-align:initial}
+.blog-info p{color:#94a3b8;font-size:.9rem;flex-grow:1;margin-bottom:15px;direction:auto;text-align:initial}
+.blog-link-text{color:#38bdf8;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;margin-top:auto}
 
 /* Contact & Footer */
 .contact{text-align:center;background:linear-gradient(180deg,#050c18 0%,#0c1a30 100%);border-radius:24px;border:1px solid #ffffff10}
@@ -270,6 +270,14 @@ function animate() {
 }
 animate();
 
+// Nettoyage de la qualité d'image Blogger (Haute Définition / HD)
+function getHighResImage(url) {
+  if (!url) return 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80';
+  // Remplace /s72-c/, /s320/, /w320-h180/ etc. par /s1600/ (Résolution HD)
+  return url.replace(/\/s\d+(-c)?\//, '/s1600/')
+            .replace(/\/w\d+-h\d+(-c)?\//, '/s1600/');
+}
+
 // Chargement Automatique des 3 derniers articles Blogspot
 function loadBloggerPosts(json) {
   const container = document.getElementById('blog-container');
@@ -294,14 +302,16 @@ function loadBloggerPosts(json) {
       }
     }
 
-    // Image miniature
-    let imgUrl = 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80';
+    // Image miniature HD
+    let rawImgUrl = null;
     if (entry.media$thumbnail) {
-      imgUrl = entry.media$thumbnail.url.replace('/s72-c/', '/s800/');
+      rawImgUrl = entry.media$thumbnail.url;
     } else if (entry.content && entry.content.$t.includes('<img')) {
       const match = entry.content.$t.match(/src="([^"]+)"/);
-      if (match) imgUrl = match[1];
+      if (match) rawImgUrl = match[1];
     }
+    
+    const imgUrl = getHighResImage(rawImgUrl);
 
     // Date
     const published = new Date(entry.published.$t);
@@ -320,7 +330,7 @@ function loadBloggerPosts(json) {
     const cardHTML = `
       <a href="${link}" target="_blank" class="blog-card">
         <div class="blog-img-wrapper">
-          <img src="${imgUrl}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80'">
+          <img src="${imgUrl}" alt="${title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80'">
         </div>
         <div class="blog-info">
           <span class="blog-date">${dateStr}</span>
