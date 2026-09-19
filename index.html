@@ -99,6 +99,19 @@ section{padding:80px 5%;max-width:1200px;margin:auto;position:relative;z-index:3
 .card h3{font-size:1.2rem;margin-bottom:8px}
 .card p{color:#94a3b8;font-size:.95rem}
 
+/* Section Blog Horizontal */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.blog-card{background:#ffffff05;border:1px solid #ffffff10;border-radius:18px;overflow:hidden;transition:.4s;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.blog-card:hover{transform:translateY(-6px);border-color:#42d9ff66;background:#ffffff0d}
+.blog-img-wrapper{width:100%;height:180px;overflow:hidden;position:relative}
+.blog-img-wrapper img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.blog-card:hover .blog-img-wrapper img{transform:scale(1.08)}
+.blog-info{padding:20px;display:flex;flex-direction:column;flex-grow:1}
+.blog-date{font-size:.8rem;color:#42d9ff;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.blog-info h3{font-size:1.1rem;margin-bottom:10px;line-height:1.4;color:#fff}
+.blog-info p{color:#94a3b8;font-size:.9rem;flex-grow:1;margin-bottom:15px}
+.blog-link-text{color:#38bdf8;font-weight:600;font-size:.9rem;display:inline-flex;align-items:center;gap:6px}
+
 /* Contact & Footer */
 .contact{text-align:center;background:linear-gradient(180deg,#050c18 0%,#0c1a30 100%);border-radius:24px;border:1px solid #ffffff10}
 footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#64748b;font-size:.9rem}
@@ -111,6 +124,7 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
   .hero-content{text-align:center;padding:40px 0}
   .hero p,.buttons{margin-left:auto;margin-right:auto;justify-content:center}
   .links{display:none}
+  .blog-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -144,7 +158,7 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
       <a href="#domaines">Domaines</a>
       <a href="#apropos">À Propos</a>
       <a href="#projets">Projets</a>
-      <a href="https://inoobyte.blogspot.com/">blog</a>
+      <a href="#blog">Blog</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -177,6 +191,53 @@ footer{text-align:center;padding:30px;border-top:1px solid #ffffff10;color:#6474
     <div class="card"><div class="icon">🤖</div><h3>Robotique</h3><p>Arduino, électronique, capteurs et projets pratiques.</p></div>
     <div class="card"><div class="icon">🎬</div><h3>Multimédia</h3><p>Audiovisuel, web, création de contenus et 3D.</p></div>
     <div class="card"><div class="icon">✨</div><h3>Intelligence Artificielle</h3><p>Utilisation concrète des outils IA.</p></div>
+  </div>
+</section>
+
+<!-- Section Blog avec 3 cartes horizontales -->
+<section id="blog">
+  <h2 class="title">Derniers <span>articles</span></h2>
+  <div class="blog-grid">
+    
+    <!-- Article 1 -->
+    <a href="https://inoobyte.blogspot.com/" target="_blank" class="blog-card">
+      <div class="blog-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=600&q=80" alt="Intelligence Artificielle">
+      </div>
+      <div class="blog-info">
+        <span class="blog-date">IA & Innovation</span>
+        <h3>Révolution GPT-6 ASTRA</h3>
+        <p>Découvrez comment les nouveaux modèles d'agents autonomes transforment le travail numérique.</p>
+        <span class="blog-link-text">Lire l'article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Article 2 -->
+    <a href="https://inoobyte.blogspot.com/" target="_blank" class="blog-card">
+      <div class="blog-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Robotique & Arduino">
+      </div>
+      <div class="blog-info">
+        <span class="blog-date">Robotique</span>
+        <h3>Débuter avec Arduino en 2026</h3>
+        <p>Les étapes essentielles pour concevoir vos premiers circuits et projets électroniques intelligents.</p>
+        <span class="blog-link-text">Lire l'article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Article 3 -->
+    <a href="https://inoobyte.blogspot.com/" target="_blank" class="blog-card">
+      <div class="blog-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80" alt="Design & Infographie">
+      </div>
+      <div class="blog-info">
+        <span class="blog-date">Design Graphique</span>
+        <h3>Tendance Infographie & Web3D</h3>
+        <p>Comment allier création graphique traditionnelle et outils génératifs pour vos visuels.</p>
+        <span class="blog-link-text">Lire l'article &rarr;</span>
+      </div>
+    </a>
+
   </div>
 </section>
 
