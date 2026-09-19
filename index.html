@@ -66,6 +66,64 @@ function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function bloggerCallback(data){const grid=document.getElementById("blogGrid");grid.innerHTML="";const entries=data.feed&&data.feed.entry?data.feed.entry:[];if(!entries.length){grid.innerHTML='<div class="error">Aucun article trouvé.</div>';return}entries.slice(0,6).forEach((e,n)=>{const title=e.title?e.title.$t:"Article";const lo=(e.link||[]).find(x=>x.rel==="alternate");const link=lo?lo.href:"#";let img=e.media$thumbnail&&e.media$thumbnail.url?e.media$thumbnail.url:firstImage(e.content?e.content.$t:"");img=highQualityBloggerImage(img);const raw=e.content?e.content.$t:(e.summary?e.summary.$t:"");const excerpt=textOnly(raw).slice(0,180);const date=e.published?new Date(e.published.$t).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"}).toUpperCase():"";const card=document.createElement("article");card.className="blog-card reveal";card.innerHTML=`<a class="blog-image" href="${link}" target="_blank" rel="noopener"><img src="${img}" alt="${esc(title)}" loading="lazy" decoding="async"></a><div class="blog-body"><div class="blog-date">${date}</div><h3>${esc(title)}</h3><p>${esc(excerpt)}${excerpt.length>=180?"…":""}</p><a class="read-more" href="${link}" target="_blank" rel="noopener">Lire l'article →</a></div>`;grid.appendChild(card);requestAnimationFrame(()=>card.classList.add("show"))})}
 const bs=document.createElement("script");bs.src="https://inoobyte.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=6&callback=bloggerCallback";bs.onerror=()=>document.getElementById("blogGrid").innerHTML='<div class="error">Impossible de charger le blog.</div>';document.body.appendChild(bs);
 </script>
+  <script>
+const canvas = document.getElementById('tech-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const particles = [];
+const particleCount = 55;
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.6,
+    vy: (Math.random() - 0.5) * 0.6,
+    size: Math.random() * 2 + 1,
+    alpha: Math.random() * 0.6 + 0.2
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < particleCount; i++) {
+    let p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(66, 217, 255, ${p.alpha})`;
+    ctx.fill();
+
+    for (let j = i + 1; j < particleCount; j++) {
+      let p2 = particles[j];
+      let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+      if (dist < 130) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = `rgba(66, 217, 255, ${0.15 * (1 - dist / 130)})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 
 <script>
 const o=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('show')),{threshold:.12});
